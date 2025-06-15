@@ -35,7 +35,7 @@ jobs:
         uses: easingthemes/ssh-deploy@main
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          REMOTE_HOST: 59.110.35.198
+          REMOTE_HOST: ${{ secrets.SERVER_HOST }}
           REMOTE_USER: root
           SOURCE: 'dist/'
-          TARGET: /var/lib/docker/volumes/nginx-html/_data/call
+          TARGET: /var/lib/docker/volumes/nginx-html/_data/-替换1
