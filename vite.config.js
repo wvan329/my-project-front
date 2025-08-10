@@ -16,7 +16,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/-替换2': {
-        target: 'http://-替换3', // 你的后端地址（或容器地址）
+        target: 'http://localhost:8080', // 你的后端地址（或容器地址）
         changeOrigin: true,
         ws: true, // ✅ 开启 WebSocket 代理
         rewrite: path => path.replace(/^\/-替换2/, '')
