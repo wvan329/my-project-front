@@ -27,7 +27,7 @@ export default defineStore("user", () => {
 
   const userLogout = () => {
     token.value = null
-    localStorage.removeItem("token")
+    localStorage.removeItem(import.meta.env.VITE_APP_TOKEN_NAME, token.value)
     // ElNotification({ title: "退出成功", type: "success", duration: 700 })
     router.push("/login")
   }
