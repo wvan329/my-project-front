@@ -1,0 +1,8 @@
+@theme {
+  /* 可以覆盖默认的--spacing: 0.25rem; */
+  --alth: 50%;
+  /* --spacing: 0.5rem; */
+  --color-mint-500: oklch(0.72 0.11 178);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));

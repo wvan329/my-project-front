@@ -1,0 +1,11 @@
+/* 最后加了important 则tailwindcss的优先级高于自己写的样式 */
+@import "tailwindcss" important;
+@import "./theme.css";
+
+/* :root{
+  --color-primary-color: blue;
+}
+
+@theme {
+  --color-primary-color: red;
+} */
