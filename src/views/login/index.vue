@@ -4,7 +4,7 @@
       ref="formRef"
       :rules="rules"
       :model="loginForm"
-      class="m-auto relative lg:right-[8%] flex h-3/5 w-4/5 flex-col items-center justify-around rounded-3xl bg-white/40 p-5 shadow-xl sm:w-3/5 md:w-3/8"
+      class="relative m-auto flex h-3/5 w-4/5 flex-col items-center justify-around rounded-3xl bg-white/40 p-5 shadow-xl sm:w-3/5 md:w-3/8 lg:right-[8%]"
     >
       <h1 class="text-3xl font-bold opacity-70">{{ title }}</h1>
       <el-form-item class="m-0 w-3/4" prop="username">
