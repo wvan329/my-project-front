@@ -5,7 +5,7 @@ import router from "@/router"
 import { ElNotification } from "element-plus"
 
 export default defineStore("user", () => {
-  let token = ref(JSON.parse(localStorage.getItem(import.meta.env.VITE_APP_TOKEN_NAME)))
+  let token = ref(localStorage.getItem(import.meta.env.VITE_APP_TOKEN_NAME))
   watch(token, (newVal, oldVal) => {
     localStorage.setItem(import.meta.env.VITE_APP_TOKEN_NAME, newVal)
   })
@@ -38,7 +38,7 @@ export default defineStore("user", () => {
   }
 
   const userLogout = () => {
-    token.value = null
+    token.value = ''
     // ElNotification({ title: "退出成功", type: "success", duration: 700 })
     router.push("/login")
   }

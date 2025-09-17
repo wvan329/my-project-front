@@ -24,7 +24,7 @@
     <div class="flex flex-1 flex-col overflow-auto bg-sky-700 dark:bg-sky-900">
       <div class="sticky top-0 flex h-[50px] shrink-0 items-center justify-between px-5">
         <div class="flex items-center">
-          <el-icon class="mr-2" @click="isCollapse = !isCollapse">
+          <el-icon class="mr-2 text-white" @click="isCollapse = !isCollapse">
             <expand v-if="isCollapse" />
             <fold v-else />
           </el-icon>
@@ -32,7 +32,7 @@
             <el-breadcrumb-item :to="{ path: item.path }" v-for="item in router.currentRoute.value.matched.filter((r) => r.children.length !== 1)">
               <div class="flex items-center">
                 <!-- <el-icon><component :is="item.meta.icon"></component></el-icon> -->
-                <span>{{ item.meta.title }}</span>
+                <span class="font-normal">{{ item.meta.title }}</span>
               </div>
             </el-breadcrumb-item>
           </el-breadcrumb>
@@ -55,7 +55,7 @@
             <img class="size-[32px] rounded-full object-cover" src="@/assets/b.jpg" alt="" />
             <el-dropdown id="dropdown" trigger="click" :hide-on-click="true">
               <span class="el-dropdown-link flex items-center">
-                <span>wgk123</span>
+                <span class="font-bold">wgk123</span>
                 <el-icon class="el-icon--right">
                   <arrow-down />
                 </el-icon>
@@ -119,5 +119,11 @@ const toggleFullscreen = () => {
 .dark .el-menu-item,
 .dark .el-sub-menu__title {
   @apply text-white;
+}
+.el-dropdown-menu__item{
+  color: black !important;
+}
+.el-dropdown-menu__item:hover{
+  background-color: oklch(92.8% 0.006 264.531) !important;
 }
 </style>

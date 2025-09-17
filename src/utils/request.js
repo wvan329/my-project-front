@@ -29,7 +29,7 @@ request.interceptors.response.use(
       })
       if (response.data.msg === "未登录") {
         const userStore = useUserStore()
-        userStore.token = null
+        userStore.token = ''
         router.push("/login")
       }
       return Promise.reject(error)

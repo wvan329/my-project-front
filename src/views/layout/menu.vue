@@ -30,18 +30,37 @@ defineProps(["list", "isCollapse"])
 
 <style>
 @import "@/styles/index.css";
+/* 白色模式 */
 .el-menu-item.is-active {
   @apply bg-sky-600 text-white;
 }
+.el-menu-item:not(.is-active):hover {
+  @apply bg-gray-700 text-white;
+}
+.el-sub-menu__title:hover {
+  @apply bg-gray-700 text-white;
+}
+
+
+/* 暗色模式 */
 .dark .el-menu-item.is-active {
   @apply bg-sky-800 text-white;
 }
-.dark .el-menu-item:not(.is-active):hover span {
+.dark .el-sub-menu__title:hover {
   @apply text-black;
 }
-.dark .el-sub-menu__title:hover span{
+.dark .el-menu-item:not(.is-active):hover {
   @apply text-black;
 }
+.dark .el-menu-item:not(.is-active):hover {
+  @apply bg-gray-200;
+}
+.dark .el-sub-menu__title:hover {
+  @apply bg-gray-200;
+}
+
+
+
 
 .is-collapse .el-icon.el-sub-menu__icon-arrow {
   display: none;
