@@ -44,7 +44,6 @@
 
           <el-switch
             class="w-10"
-            @click="userStore.toggleDark()"
             v-model="userStore.isDark"
             active-action-icon="moon"
             style="--el-switch-on-color: black; --el-switch-off-color: grey"

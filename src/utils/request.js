@@ -30,7 +30,6 @@ request.interceptors.response.use(
       if (response.data.msg === "未登录") {
         const userStore = useUserStore()
         userStore.token = null
-        localStorage.removeItem(import.meta.env.VITE_APP_TOKEN_NAME)
         router.push("/login")
       }
       return Promise.reject(error)

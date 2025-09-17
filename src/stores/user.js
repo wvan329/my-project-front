@@ -1,4 +1,4 @@
-import { ref, computed } from "vue"
+import { ref, computed, watch } from "vue"
 import { defineStore } from "pinia"
 import { login } from "@/api/user"
 import router from "@/router"
@@ -6,6 +6,10 @@ import { ElNotification } from "element-plus"
 
 export default defineStore("user", () => {
   let token = ref(localStorage.getItem(import.meta.env.VITE_APP_TOKEN_NAME))
+  watch(token, (newVal, oldVal) => {
+    localStorage.setItem(import.meta.env.VITE_APP_TOKEN_NAME, newVal)
+  })
+
   let isDark = ref(JSON.parse(localStorage.getItem("isDark")))
   if (isDark.value) {
     document.documentElement.classList.add("dark")
@@ -19,27 +23,25 @@ export default defineStore("user", () => {
       }
     }
   }
-  // const doubleCount = computed(() => count.value * 2)
-  const userLogin = async (data) => {
-    token.value = (await login(data)).token
-    localStorage.setItem(import.meta.env.VITE_APP_TOKEN_NAME, token.value)
-  }
-
-  const userLogout = () => {
-    token.value = null
-    localStorage.removeItem(import.meta.env.VITE_APP_TOKEN_NAME, token.value)
-    // ElNotification({ title: "退出成功", type: "success", duration: 700 })
-    router.push("/login")
-  }
-
-  const toggleDark = () => {
-    localStorage.setItem("isDark", isDark.value)
-    if (isDark.value) {
+  watch(isDark, (newVal, oldVal) => {
+    localStorage.setItem("isDark", newVal)
+    if (newVal) {
       document.documentElement.classList.add("dark")
     } else {
       document.documentElement.classList.remove("dark")
     }
+  })
+
+  // const doubleCount = computed(() => count.value * 2)
+  const userLogin = async (data) => {
+    token.value = (await login(data)).token
   }
 
-  return { userLogin, userLogout, token, isDark, toggleDark }
+  const userLogout = () => {
+    token.value = null
+    // ElNotification({ title: "退出成功", type: "success", duration: 700 })
+    router.push("/login")
+  }
+
+  return { userLogin, userLogout, token, isDark }
 })
