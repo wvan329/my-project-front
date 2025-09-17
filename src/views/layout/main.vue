@@ -1,8 +1,19 @@
 <template>
   <router-view v-slot="{ Component }">
-    <transition name="page" mode="out-in">
+    <!-- <transition enter-active-class="transition-opacity duration-1000" enter-from-class="opacity-0" enter-to-class="opacity-100"> -->
+    <!-- <transition name="page" mode="out-in"> -->
+    <transition
+      mode="out-in"
+      enter-active-class="duration-200"
+      enter-from-class="opacity-0 -translate-x-5"
+      enter-to-class="opacity-100 translate-0"
+      leave-active-class="duration-200"
+      leave-from-class="opacity-1 translate-0"
+      leave-to-class="opacity-0 translate-x-5"
+    >
       <component :is="Component" />
     </transition>
+    <!-- </transition> -->
   </router-view>
 </template>
 
@@ -12,9 +23,9 @@ import { ref } from "vue"
 
 <style scoped>
 @import "@/styles/index.css";
-.page-enter-from {
+/* .page-enter-from {
   opacity: 0;
-  transform: translateX(-20px); /* 从右轻微进入 */
+  transform: translateX(-20px); 
 }
 .page-enter-to {
   opacity: 1;
@@ -26,10 +37,10 @@ import { ref } from "vue"
 }
 .page-leave-to {
   opacity: 0;
-  transform: translateX(20px); /* 向左轻微离开 */
+  transform: translateX(20px);
 }
 .page-enter-active,
 .page-leave-active {
   transition: all 0.2s ease;
-}
+} */
 </style>
