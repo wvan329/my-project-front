@@ -55,7 +55,7 @@
             <img class="size-[32px] rounded-full object-cover" src="@/assets/b.jpg" alt="" />
             <el-dropdown id="dropdown" trigger="click" :hide-on-click="true">
               <span class="el-dropdown-link flex items-center">
-                <span class="font-bold">wgk123</span>
+                <span class="font-bold">{{ userStore.user.username }}</span>
                 <el-icon class="el-icon--right">
                   <arrow-down />
                 </el-icon>
@@ -120,10 +120,10 @@ const toggleFullscreen = () => {
 .dark .el-sub-menu__title {
   @apply text-white;
 }
-.el-dropdown-menu__item{
+.el-dropdown-menu__item {
   color: black !important;
 }
-.el-dropdown-menu__item:hover{
+.el-dropdown-menu__item:hover {
   background-color: oklch(92.8% 0.006 264.531) !important;
 }
 </style>

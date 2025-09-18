@@ -36,7 +36,7 @@ import { ElNotification } from "element-plus"
 const title = import.meta.env.VITE_APP_TITLE
 
 const userStore = useUserStore()
-if (userStore.token) {
+if (userStore.user) {
   // todo打开这行代码
   router.push("/")
 }

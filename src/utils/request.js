@@ -1,7 +1,7 @@
 import axios from "axios"
 import { ElMessage } from "element-plus"
 import useUserStore from "@/stores/user"
-import router from '@/router'
+import router from "@/router"
 
 const request = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
@@ -11,8 +11,8 @@ const request = axios.create({
 // Add a request interceptor
 request.interceptors.request.use((config) => {
   const userStore = useUserStore()
-  if (userStore.token) {
-    config.headers["satoken--替换1"] = userStore.token
+  if (userStore.user) {
+    config.headers["satoken--替换1"] = userStore.user.token
   }
   return config
 })
@@ -29,7 +29,7 @@ request.interceptors.response.use(
       })
       if (response.data.msg === "未登录") {
         const userStore = useUserStore()
-        userStore.token = ''
+        userStore.user = ""
         router.push("/login")
       }
       return Promise.reject(error)
