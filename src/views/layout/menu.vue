@@ -30,37 +30,43 @@ defineProps(["list", "isCollapse"])
 
 <style>
 @import "@/styles/index.css";
-/* 白色模式 */
+
+.el-popper.is-dark.el-tooltip {
+  @apply hidden;
+}
+
+.el-tooltip {
+  border: 0 !important;
+}
+
+/* 白色模式展开 */
 .el-menu-item.is-active {
   @apply bg-sky-600 text-white;
 }
 .el-menu-item:not(.is-active):hover {
   @apply bg-gray-700 text-white;
 }
+.el-sub-menu.is-active .el-sub-menu__title {
+  @apply bg-gray-700 text-white;
+}
 .el-sub-menu__title:hover {
   @apply bg-gray-700 text-white;
 }
-
-
-/* 暗色模式 */
-.dark .el-menu-item.is-active {
-  @apply bg-sky-800 text-white;
-}
-.dark .el-sub-menu__title:hover {
-  @apply text-black;
-}
-.dark .el-menu-item:not(.is-active):hover {
-  @apply text-black;
-}
-.dark .el-menu-item:not(.is-active):hover {
-  @apply bg-gray-200;
-}
-.dark .el-sub-menu__title:hover {
-  @apply bg-gray-200;
+.el-sub-menu:hover .el-sub-menu__title {
+  @apply bg-gray-700 text-white;
 }
 
-
-
+/* 白色模式收缩 */
+.is-collapse .el-sub-menu.is-opened .el-sub-menu__title {
+  @apply bg-gray-700 text-white;
+}
+.el-sub-menu.is-active .el-sub-menu__title {
+  color: white !important;
+}
+/* 黑色模式 */
+.dark .el-menu--popup{
+  @apply bg-black;
+}
 
 .is-collapse .el-icon.el-sub-menu__icon-arrow {
   display: none;
