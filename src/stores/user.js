@@ -1,6 +1,6 @@
 import { ref, computed, watch } from "vue"
 import { defineStore } from "pinia"
-import { login } from "@/api/user"
+import { login, logout } from "@/api/user"
 import router from "@/router"
 import { ElNotification } from "element-plus"
 
@@ -37,8 +37,9 @@ export default defineStore("user", () => {
     user.value = await login(data)
   }
 
-  const userLogout = () => {
-    user.value = ''
+  const userLogout = async () => {
+    await logout()
+    user.value = ""
     // ElNotification({ title: "退出成功", type: "success", duration: 700 })
     router.push("/login")
   }
