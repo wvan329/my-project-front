@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { reactive, ref, onMounted } from "vue"
+import { reactive, ref } from "vue"
 import useUserStore from "@/stores/user"
 import { getCaptcha } from "@/api/user"
 import router from "@/router"
@@ -40,8 +40,8 @@ if (userStore.user) {
   // todo打开这行代码
   router.push("/")
 }
-// const loginForm = reactive({ username: "wgk123", password: "123456", captchaId: "", captcha: "" })
-const loginForm = reactive({ username: "", password: "", captchaId: "", captcha: "" })
+const loginForm = reactive({ username: "wgk123", password: "123456", captchaId: "", captcha: "" })
+// const loginForm = reactive({ username: "", password: "", captchaId: "", captcha: "" })
 let captcha = ref()
 const flushCaptcha = async () => {
   captcha.value = await getCaptcha()
@@ -60,7 +60,7 @@ const login = async () => {
     return
   }
   // ElNotification({ title: "登录成功", type: "success", duration: 700 })
-  router.push("/")
+  router.push(router.currentRoute.value.query.redirect || "/")
 }
 
 const validateCaptcha = (rule, value, callback) => {

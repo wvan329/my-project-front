@@ -2,17 +2,22 @@ import axios from "axios"
 import { ElMessage } from "element-plus"
 import useUserStore from "@/stores/user"
 import router from "@/router"
+import { nextTick } from "vue"
 
 const request = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_API,
+  baseURL: "/" + import.meta.env.VITE_APP_NAME + "-api",
   timeout: 5000
+})
+
+let userStore
+nextTick(() => {
+  userStore = useUserStore()
 })
 
 // Add a request interceptor
 request.interceptors.request.use((config) => {
-  const userStore = useUserStore()
   if (userStore.user) {
-    config.headers["satoken--替换1"] = userStore.user.token
+    config.headers["satoken-" + import.meta.env.VITE_APP_NAME] = userStore.user.token
   }
   return config
 })
@@ -28,7 +33,6 @@ request.interceptors.response.use(
         type: "error"
       })
       if (response.data.msg === "未登录") {
-        const userStore = useUserStore()
         userStore.user = ""
         router.push("/login")
       }

@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router"
+import useUserStore from "@/stores/user"
+import { nextTick } from "vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-
     //path不要重复，path是用于menu判断选中的唯一标识
     //meta里的title、icon最好都有，如果只有一个子元素可以不写，因为不会被渲染。
     //meta里的hidden可以不写，表示不隐藏
@@ -124,6 +125,26 @@ const router = createRouter({
       }
     }
   ]
+})
+
+const white = ["/login"]
+let userStore
+nextTick(() => {
+  userStore = useUserStore()
+})
+
+router.beforeEach((to, from, next) => {
+  if (!white.includes(to.path)) {
+    if (!userStore.user) {
+      return next({
+        path: "/login",
+        query: {
+          redirect: to.path
+        }
+      })
+    }
+  }
+  next()
 })
 
 export default router

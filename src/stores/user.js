@@ -5,9 +5,9 @@ import router from "@/router"
 import { ElNotification } from "element-plus"
 
 export default defineStore("user", () => {
-  let user = ref(JSON.parse(localStorage.getItem(import.meta.env.VITE_APP_NAME)))
+  let user = ref(JSON.parse(localStorage.getItem(import.meta.env.VITE_APP_NAME + "-user")))
   watch(user, (newVal, oldVal) => {
-    localStorage.setItem(import.meta.env.VITE_APP_NAME, JSON.stringify(newVal))
+    localStorage.setItem(import.meta.env.VITE_APP_NAME + "-user", JSON.stringify(newVal))
   })
 
   let isDark = ref(JSON.parse(localStorage.getItem("isDark")))
@@ -41,7 +41,12 @@ export default defineStore("user", () => {
     await logout()
     user.value = ""
     // ElNotification({ title: "退出成功", type: "success", duration: 700 })
-    router.push("/login")
+    router.push({
+      path: "/login",
+      query: {
+        redirect: router.currentRoute.value.path
+      }
+    })
   }
 
   return { userLogin, userLogout, user, isDark }
