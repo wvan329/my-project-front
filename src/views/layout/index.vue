@@ -1,13 +1,19 @@
 <template>
   <div class="flex h-screen">
     <!-- <el-button @click="console.log(router)"></el-button> -->
+     <!-- 左 -->
     <div class="z-1 flex flex-col shadow-[4px_0_3px_rgba(0,0,0,0.6)] duration-200" :class="[isCollapse ? 'w-[64px]' : 'w-[260px]']">
-      <div @click="isCollapse = !isCollapse" class="sticky top-0 flex h-[50px] shrink-0 items-center justify-center bg-sky-700 dark:bg-sky-900">
+      <!-- 左上 -->
+      <div
+        @click="isCollapse = !isCollapse"
+        class="sticky top-0 flex h-[50px] shrink-0 cursor-pointer items-center justify-center bg-sky-700 dark:bg-sky-900"
+      >
         <img class="size-[32px] object-cover align-top" src="/lanqiu.png" alt="" />
         <transition enter-active-class="transition-opacity duration-1000" enter-from-class="opacity-0" enter-to-class="opacity-100">
           <h1 v-if="!isCollapse" class="ml-3 font-bold text-white">{{ title }}</h1>
         </transition>
       </div>
+      <!-- 左下 -->
       <el-scrollbar class="flex-1 dark:bg-black">
         <el-menu
           :class="{ 'is-collapse': isCollapse }"
@@ -21,10 +27,13 @@
       </el-scrollbar>
     </div>
 
-    <div class="flex flex-1 flex-col overflow-auto bg-sky-700 dark:bg-sky-900">
-      <div class="sticky top-0 flex h-[50px] shrink-0 items-center justify-between px-5">
+    <!-- 右 -->
+    <div class="flex flex-1 flex-col overflow-auto">
+      <!-- 右上 -->
+      <div class="sticky top-0 flex h-[50px] shrink-0 items-center justify-between bg-sky-700 px-5 dark:bg-sky-900">
+        <!-- 左 -->
         <div class="flex items-center">
-          <el-icon class="mr-2 text-white" @click="isCollapse = !isCollapse">
+          <el-icon class="mr-2 text-white">
             <expand v-if="isCollapse" />
             <fold v-else />
           </el-icon>
@@ -37,6 +46,7 @@
             </el-breadcrumb-item>
           </el-breadcrumb>
         </div>
+        <!-- 右 -->
         <div class="flex items-center gap-x-2">
           <!-- <el-button class="m-0" circle icon="refresh" /> -->
           <el-button class="m-0" @click="toggleFullscreen" circle icon="FullScreen" />
@@ -69,7 +79,8 @@
           </div>
         </div>
       </div>
-      <div class="flex-1 bg-white p-5 dark:bg-black">
+      <!-- 右下 -->
+      <div class="flex-1 p-5 dark:bg-black">
         <Main class="dark:text-white"></Main>
       </div>
     </div>
@@ -120,10 +131,10 @@ const toggleFullscreen = () => {
 .dark .el-sub-menu__title {
   @apply text-white;
 }
-.el-dropdown-menu__item{
+.el-dropdown-menu__item {
   color: black !important;
 }
-.el-dropdown-menu__item:hover{
+.el-dropdown-menu__item:hover {
   background-color: oklch(92.8% 0.006 264.531) !important;
 }
 </style>
