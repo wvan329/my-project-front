@@ -273,10 +273,11 @@ li.is-active.number {
 .el-form-item label {
   @apply dark:text-white;
 }
+
 .el-card,
 .el-table__cell,
 .el-table__header-wrapper > table .el-table__cell {
-  @apply dark:border-gray-700 dark:bg-black dark:text-white;
+  @apply text-black bg-white dark:border-gray-700 dark:bg-black dark:text-white;
 }
 .el-table__inner-wrapper {
   @apply border-none;
