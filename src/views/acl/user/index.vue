@@ -33,7 +33,7 @@
           </template>
         </el-popconfirm>
       </div>
-      <el-table ref="tableRef" class="mt-[10px]" border :data="userList">
+      <el-table ref="tableRef" class="mt-[10px]" :data="userList">
         <el-table-column type="selection" :selectable="selectable"></el-table-column>
         <el-table-column label="序号" align="center" width="80px" type="index"></el-table-column>
         <el-table-column label="用户名" align="center" prop="username" show-overflow-tooltip></el-table-column>
@@ -281,8 +281,17 @@ li.is-active.number {
 .el-table__inner-wrapper {
   @apply border-none;
 }
-.el-table__row:hover .cell {
-  @apply dark:text-black;
+
+.dark .el-table__row:hover .el-table__cell {
+  background-color: var(--color-gray-700) !important;
+}
+
+.dark .el-table__cell {
+  border: none !important;
+}
+
+.el-table__inner-wrapper::before {
+  @apply hidden;
 }
 
 div.el-table__inner-wrapper > div.el-table__header-wrapper > table > thead > tr th {
@@ -292,6 +301,10 @@ div.el-table__inner-wrapper > div.el-table__header-wrapper > table > thead > tr 
   @apply dark:bg-black;
 }
 .el-table__empty-text {
+  @apply dark:text-white;
+}
+.el-pagination__jump,
+.el-pagination__total {
   @apply dark:text-white;
 }
 </style>
