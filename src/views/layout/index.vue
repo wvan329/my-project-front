@@ -20,6 +20,7 @@
           class="border-none dark:bg-black dark:text-white"
           router
           :collapse="isCollapse"
+          show="false"
           :default-active="router.currentRoute.value.path"
         >
           <Menu :isCollapse="isCollapse" :list="router.options.routes"></Menu>

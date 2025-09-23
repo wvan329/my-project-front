@@ -11,10 +11,10 @@
       <el-sub-menu class="" v-else :index="item.path">
         <template #title>
           <el-icon><component :is="item.meta.icon" /></el-icon>
-          <span v-if="!isCollapse">{{ item.meta.title }}</span>
+          <span v-if="!isCollapse || show">{{ item.meta.title }}</span>
         </template>
         <template #default>
-          <Menu :is-collapse="isCollapse" :list="item.children"></Menu>
+          <Menu :is-collapse="isCollapse" show="true" :list="item.children"></Menu>
         </template>
       </el-sub-menu>
     </div>
@@ -25,7 +25,7 @@
 import Menu from "./menu.vue"
 import router from "@/router"
 
-defineProps(["list", "isCollapse"])
+defineProps(["list", "isCollapse", "show"])
 </script>
 
 <style>
@@ -46,25 +46,24 @@ defineProps(["list", "isCollapse"])
 .el-menu-item:not(.is-active):hover {
   @apply bg-gray-700 text-white;
 }
-.el-sub-menu.is-active .el-sub-menu__title {
+.el-sub-menu.is-active > .el-sub-menu__title {
   @apply bg-gray-700 text-white;
 }
 .el-sub-menu__title:hover {
   @apply bg-gray-700 text-white;
 }
-.el-sub-menu:hover .el-sub-menu__title {
+.el-sub-menu:hover > .el-sub-menu__title {
   @apply bg-gray-700 text-white;
 }
-
 /* 白色模式收缩 */
 .is-collapse .el-sub-menu.is-opened .el-sub-menu__title {
   @apply bg-gray-700 text-white;
 }
-.el-sub-menu.is-active .el-sub-menu__title {
+.el-sub-menu.is-active > .el-sub-menu__title {
   color: white !important;
 }
 /* 黑色模式 */
-.dark .el-menu--popup{
+.dark .el-menu--popup {
   @apply bg-black;
 }
 

@@ -83,22 +83,13 @@ const router = createRouter({
         icon: "connection"
       },
       children: [
-        {
-          path: "/acl/permission",
-          name: "permission",
-          meta: {
-            title: "菜单管理",
-            icon: "position"
-          },
-          component: () => import("@/views/acl/permission/index.vue")
-        },
         //user
         {
           path: "/acl/user",
           name: "user",
           meta: {
-            title: "用户管理",
-            icon: "user"
+            title: "用户管理"
+            // icon: "user"
           },
           component: () => import("@/views/acl/user/index.vue")
         },
@@ -107,10 +98,19 @@ const router = createRouter({
           path: "/acl/role",
           name: "role",
           meta: {
-            title: "角色管理",
-            icon: "aim"
+            title: "角色管理"
+            // icon: "aim"
           },
           component: () => import("@/views/acl/role/index.vue")
+        },
+        {
+          path: "/acl/permission",
+          name: "permission",
+          meta: {
+            title: "菜单管理"
+            // icon: "position"
+          },
+          component: () => import("@/views/acl/permission/index.vue")
         }
       ]
     },
