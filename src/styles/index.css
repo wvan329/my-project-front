@@ -9,3 +9,72 @@
 @theme {
   --color-primary-color: red;
 } */
+
+.el-button {
+  @apply m-0 rounded-lg border-none px-[10px] py-[4px];
+}
+.el-button + .el-button {
+  margin-left: 2px; /* 左边距，根据需要调整 */
+}
+button.el-button--primary {
+  @apply bg-sky-600;
+}
+button.el-button--danger {
+  @apply bg-red-700;
+}
+li.is-active.number {
+  background-color: var(--color-sky-600) !important;
+}
+.el-checkbox__input.is-indeterminate .el-checkbox__inner {
+  @apply border-none bg-gray-700;
+}
+.el-form-item label {
+  @apply dark:text-white;
+}
+
+.el-card,
+.el-table__cell,
+.el-table__header-wrapper > table .el-table__cell {
+  @apply bg-white text-black dark:border-gray-700 dark:bg-black dark:text-white;
+}
+.el-table__inner-wrapper {
+  @apply border-none;
+}
+
+.dark .el-table__row:hover .el-table__cell {
+  background-color: var(--color-gray-700) !important;
+}
+
+.dark .el-table__cell {
+  border: none !important;
+}
+
+.el-table__inner-wrapper::before {
+  @apply hidden;
+}
+
+div.el-table__inner-wrapper > div.el-table__header-wrapper > table > thead > tr th {
+  @apply dark:border-gray-700;
+}
+.el-table__empty-block {
+  @apply dark:bg-black;
+}
+.el-table__empty-text {
+  @apply dark:text-white;
+}
+.el-pagination__jump,
+.el-pagination__total {
+  @apply dark:text-white;
+}
+.dark .el-drawer__title {
+  color: white !important;
+}
+.dark .el-tree {
+  @apply bg-black text-white;
+}
+.dark .el-text {
+  @apply text-white;
+}
+.dark .el-tree-node__content:hover .el-text {
+  @apply text-black
+}

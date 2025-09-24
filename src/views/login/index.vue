@@ -73,7 +73,7 @@ const validateCaptcha = (rule, value, callback) => {
 const rules = reactive({
   username: [
     { required: true, message: "请输入账号", trigger: "change" },
-    { min: 6, max: 16, message: "长度6-16位", trigger: "change" }
+    { min: 4, max: 16, message: "长度4-16位", trigger: "change" }
   ],
   password: [
     { required: true, message: "请输入密码", trigger: "change" },

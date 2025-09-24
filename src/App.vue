@@ -4,13 +4,6 @@
   </div>
 </template>
 
-<script setup>
-</script>
+<style>
 
-<style lang="scss" scoped>
-.parent {
-  &:hover {
-    // background-color: $primary-color;
-  }
-}
 </style>

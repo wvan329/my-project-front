@@ -1,7 +1,7 @@
 <template>
   <div class="flex h-screen">
     <!-- <el-button @click="console.log(router)"></el-button> -->
-     <!-- 左 -->
+    <!-- 左 -->
     <div class="z-1 flex flex-col shadow-[4px_0_3px_rgba(0,0,0,0.6)] duration-200" :class="[isCollapse ? 'w-[64px]' : 'w-[260px]']">
       <!-- 左上 -->
       <div

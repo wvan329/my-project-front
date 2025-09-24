@@ -36,6 +36,9 @@ request.interceptors.response.use(
         userStore.user = ""
         router.push("/login")
       }
+      if (response.data.msg === "无权限") {
+        router.push("/")
+      }
       return Promise.reject(error)
     }
     return response.data.data

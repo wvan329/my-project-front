@@ -122,59 +122,24 @@
 </template>
 
 <script setup>
-import { getUserListApi, addOrUpdateUserApi } from "@/api/acl/user"
 import { ref } from "vue"
 import { ElNotification } from "element-plus"
 import useUserStore from "@/stores/user"
 import request from "@/utils/request"
 const userStore = useUserStore()
 
-let drawer1 = ref(false)
-let checkAll = ref(false)
-
-let allRoles = ref([])
-let isIndeterminate = ref(false)
-
-const getAllRoles = async () => {
-  allRoles.value = await request.get("/roles/getAll")
-}
-getAllRoles()
-
-const handleCheckAllChange = () => {
-  isIndeterminate.value = false
-  userInfo.value.roles = checkAll.value ? allRoles.value : []
-}
-const handleCheckedItemsChange = () => {
-  isIndeterminate.value = userInfo.value.roles.length > 0 && userInfo.value.roles.length < allRoles.value.length
-  checkAll.value = userInfo.value.roles.length === allRoles.value.length
-}
-const setRole = (row) => {
-  drawer1.value = !drawer1.value
-  Object.assign(userInfo.value, row)
-  checkAll.value = row.roles.length === allRoles.value.length
-  isIndeterminate.value = userInfo.value.roles.length > 0 && userInfo.value.roles.length < allRoles.value.length
-}
-const updateRole = async () => {
-  await request.post("/roles/updateRole", userInfo.value)
-  ElNotification({ title: "修改成功", type: "success", duration: 700 })
-  drawer1.value = !drawer1.value
-  getUserList()
-}
-
-const deleteUser = async (row) => {
-  await request.delete("/deleteUser", {
-    params: {
-      ids: row.id
-    }
-  })
+// 上
+let username = ref("")
+let search = ""
+const doSearch = async () => {
+  search = username.value
   await getUserList()
-  ElNotification({ title: "删除成功", type: "success", duration: 700 })
 }
-
-let tableRef = ref()
-
-const selectable = (row) => userStore.user.id !== row.id
-
+// 下
+let drawer = ref(false)
+const formRef = ref()
+let userInfo = ref({})
+let drawerTitle = ref("添加用户")
 const deleteUsers = async () => {
   let ids = tableRef.value.getSelectionRows().map((item) => item.id)
   if (ids.length === 0) {
@@ -189,11 +154,40 @@ const deleteUsers = async () => {
   await getUserList()
   ElNotification({ title: "删除成功", type: "success", duration: 700 })
 }
-
-let drawer = ref(false)
-let drawerTitle = ref("添加用户")
-
-let userInfo = ref({})
+let tableRef = ref()
+let userList = ref([])
+const selectable = (row) => userStore.user.id !== row.id
+const setRole = (row) => {
+  drawer1.value = !drawer1.value
+  Object.assign(userInfo.value, row)
+  checkAll.value = row.roles.length === allRoles.value.length
+  isIndeterminate.value = userInfo.value.roles.length > 0 && userInfo.value.roles.length < allRoles.value.length
+}
+const deleteUser = async (row) => {
+  await request.delete("/deleteUser", {
+    params: {
+      ids: row.id
+    }
+  })
+  await getUserList()
+  ElNotification({ title: "删除成功", type: "success", duration: 700 })
+}
+let pageNo = ref(1)
+let pageSize = ref(7)
+let total = ref(0)
+const getUserList = async () => {
+  const data = await request.get("/getUserList", {
+    params: {
+      search,
+      pageNo:pageNo.value,
+      pageSize:pageSize.value
+    }
+  })
+  userList.value = data.data
+  total.value = data.total
+}
+getUserList()
+// 抽屉1
 const validatorUsername = (rule, value, callBack) => {
   if (value?.length >= 6) {
     callBack()
@@ -216,14 +210,16 @@ const validatorCheckPassword = (rule, value, callBack) => {
   }
 }
 const rules = {
-  username: [{ required: true, trigger: "change", validator: validatorUsername }],
+  username: [
+    { required: true, trigger: "change", message: "请输入用户名" },
+    { min: 4, max: 20, message: "长度在4-20个字符" }
+  ],
   password: [{ required: true, trigger: "change", validator: validatorPassword }],
   checkPassword: [{ required: true, trigger: "change", validator: validatorCheckPassword }]
 }
-const formRef = ref()
 const addOrUpdateUser = async () => {
   await formRef.value.validate()
-  await addOrUpdateUserApi(userInfo.value)
+  await request.post("/addOrUpdateUser", userInfo.value)
   await getUserList()
   drawer.value = !drawer.value
   ElNotification({ title: drawerTitle.value.substring(0, 2) + "成功", type: "success", duration: 700 })
@@ -231,81 +227,35 @@ const addOrUpdateUser = async () => {
     await userStore.userLogout()
   }
 }
-
-let pageNo = ref(1)
-let pageSize = ref(7)
-let total = ref(0)
-let userList = ref([])
-let username = ref("")
-let search = ""
-const getUserList = async () => {
-  const data = await getUserListApi(search, pageNo.value, pageSize.value)
-  userList.value = data.data
-  total.value = data.total
+// 抽屉2
+let drawer1 = ref(false)
+let checkAll = ref(false)
+let allRoles = ref([])
+let isIndeterminate = ref(false)
+const getAllRoles = async () => {
+  allRoles.value = (await request.get("/roles/getRoleList", {
+    params: {
+      pageNo: -1
+    }
+  })).data.map((item) => item.role)
 }
-getUserList()
-const doSearch = async () => {
-  search = username.value
-  await getUserList()
+getAllRoles()
+const handleCheckAllChange = () => {
+  isIndeterminate.value = false
+  userInfo.value.roles = checkAll.value ? allRoles.value : []
+}
+const handleCheckedItemsChange = () => {
+  isIndeterminate.value = userInfo.value.roles.length > 0 && userInfo.value.roles.length < allRoles.value.length
+  checkAll.value = userInfo.value.roles.length === allRoles.value.length
+}
+const updateRole = async () => {
+  await request.post("/roles/updateRole", userInfo.value)
+  ElNotification({ title: "修改成功", type: "success", duration: 700 })
+  drawer1.value = !drawer1.value
+  getUserList()
 }
 </script>
 
 <style>
 @import "@/styles/index.css";
-.el-button {
-  @apply m-0 rounded-lg border-none px-[10px] py-[4px];
-}
-.el-button + .el-button {
-  margin-left: 2px; /* 左边距，根据需要调整 */
-}
-button.el-button--primary {
-  @apply bg-sky-600;
-}
-button.el-button--danger {
-  @apply bg-red-700;
-}
-li.is-active.number {
-  background-color: var(--color-sky-600) !important;
-}
-.el-checkbox__input.is-indeterminate .el-checkbox__inner {
-  @apply border-none bg-gray-700;
-}
-.el-form-item label {
-  @apply dark:text-white;
-}
-
-.el-card,
-.el-table__cell,
-.el-table__header-wrapper > table .el-table__cell {
-  @apply text-black bg-white dark:border-gray-700 dark:bg-black dark:text-white;
-}
-.el-table__inner-wrapper {
-  @apply border-none;
-}
-
-.dark .el-table__row:hover .el-table__cell {
-  background-color: var(--color-gray-700) !important;
-}
-
-.dark .el-table__cell {
-  border: none !important;
-}
-
-.el-table__inner-wrapper::before {
-  @apply hidden;
-}
-
-div.el-table__inner-wrapper > div.el-table__header-wrapper > table > thead > tr th {
-  @apply dark:border-gray-700;
-}
-.el-table__empty-block {
-  @apply dark:bg-black;
-}
-.el-table__empty-text {
-  @apply dark:text-white;
-}
-.el-pagination__jump,
-.el-pagination__total {
-  @apply dark:text-white;
-}
 </style>

@@ -12,13 +12,13 @@ const router = createRouter({
     //登录成功后展示
     {
       path: "/",
-      name: "layout", //命名路由，做权限
       component: () => import("@/views/layout/index.vue"),
       redirect: "/home",
       children: [
         {
           path: "/home",
           component: () => import("@/views/home/index.vue"),
+          name: "menu",
           meta: {
             title: "首页",
             icon: "menu"
@@ -59,11 +59,11 @@ const router = createRouter({
 
     {
       path: "/screen",
-      name: "screen", //命名路由，做权限
       component: () => import("@/views/layout/index.vue"),
       children: [
         {
           path: "/screen",
+          name: "screen", //命名路由，做权限
           component: () => import("@/views/screen/index.vue"),
           meta: {
             title: "数据大屏",
@@ -75,9 +75,8 @@ const router = createRouter({
 
     {
       path: "/acl",
-      name: "acl",
       component: () => import("@/views/layout/index.vue"),
-      redirect: "/acl/permission",
+      redirect: "/acl/user",
       meta: {
         title: "权限管理",
         icon: "connection"
@@ -102,15 +101,69 @@ const router = createRouter({
             // icon: "aim"
           },
           component: () => import("@/views/acl/role/index.vue")
+        }
+        // {
+        //   path: "/acl/permission",
+        //   name: "permission",
+        //   meta: {
+        //     title: "菜单管理"
+        //     // icon: "position"
+        //   },
+        //   component: () => import("@/views/acl/permission/index.vue")
+        // }
+      ]
+    },
+    //业务
+    {
+      path: "/edu",
+      component: () => import("@/views/layout/index.vue"),
+      redirect: "/edu/teacher",
+      meta: {
+        title: "讲师管理",
+        icon: "user"
+      },
+      children: [
+        {
+          path: "/edu/teacher",
+          component: () => import("@/views/edu/teacher/index.vue"),
+          meta: {
+            title: "讲师列表"
+          },
+          buttons: [
+            {
+              name: "edu3",
+              meta: {
+                title: "添加资料"
+              }
+            },
+            {
+              name: "edu4",
+              meta: {
+                title: "删除资料"
+              }
+            }
+          ]
         },
         {
-          path: "/acl/permission",
-          name: "permission",
+          path: "/edu/content",
+          component: () => import("@/views/edu/content/index.vue"),
           meta: {
-            title: "菜单管理"
-            // icon: "position"
+            title: "讲师资料"
           },
-          component: () => import("@/views/acl/permission/index.vue")
+          buttons: [
+            {
+              name: "edu1",
+              meta: {
+                title: "添加资料"
+              }
+            },
+            {
+              name: "edu2",
+              meta: {
+                title: "删除资料"
+              }
+            }
+          ]
         }
       ]
     },
@@ -118,7 +171,6 @@ const router = createRouter({
     {
       path: "/:pathMatch(.*)*",
       redirect: "/404",
-      name: "any",
       meta: {
         title: "任意路由",
         hidden: true
