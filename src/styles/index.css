@@ -10,6 +10,48 @@
   --color-primary-color: red;
 } */
 
+/* menu */
+.el-popper.is-dark.el-tooltip {
+  @apply hidden;
+}
+
+.el-tooltip {
+  border: 0 !important;
+}
+
+/* 白色模式展开 */
+.el-menu-item.is-active {
+  @apply bg-sky-600 text-white;
+}
+.el-menu-item:not(.is-active):hover {
+  @apply bg-gray-700 text-white;
+}
+.el-sub-menu.is-active > .el-sub-menu__title {
+  @apply bg-gray-700 text-white;
+}
+.el-sub-menu__title:hover {
+  @apply bg-gray-700 text-white;
+}
+.el-sub-menu:hover > .el-sub-menu__title {
+  @apply bg-gray-700 text-white;
+}
+/* 白色模式收缩 */
+.is-collapse .el-sub-menu.is-opened .el-sub-menu__title {
+  @apply bg-gray-700 text-white;
+}
+.el-sub-menu.is-active > .el-sub-menu__title {
+  color: white !important;
+}
+/* 黑色模式 */
+.dark .el-menu--popup {
+  @apply bg-black;
+}
+
+.is-collapse .el-icon.el-sub-menu__icon-arrow {
+  display: none;
+}
+/* menu */
+
 .el-button {
   @apply m-0 rounded-lg border-none px-[10px] py-[4px];
 }
@@ -76,5 +118,5 @@ div.el-table__inner-wrapper > div.el-table__header-wrapper > table > thead > tr 
   @apply text-white;
 }
 .dark .el-tree-node__content:hover .el-text {
-  @apply text-black
+  @apply text-black;
 }

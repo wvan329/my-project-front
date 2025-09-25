@@ -162,6 +162,12 @@ const router = createRouter({
               meta: {
                 title: "删除资料"
               }
+            },
+            {
+              name: "abc",
+              meta: {
+                title: "按钮abc"
+              }
             }
           ]
         }

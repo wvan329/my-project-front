@@ -1,6 +1,7 @@
 <template>
   <div>
     讲师
+    <el-button v-has="'abc'">abc</el-button>
   </div>
 </template>
 
