@@ -76,7 +76,7 @@
     </el-card>
     <!-- 抽屉1 -->
     <el-drawer class="dark:bg-black" v-model="drawer" direction="rtl" :title="drawerTitle" size="30%">
-      <el-form ref="formRef" label-position="left" label-width="auto" :model="userInfo" :rules="rules">
+      <el-form @submit.prevent ref="formRef"  @keyup.enter="addOrUpdateUser" label-position="left" label-width="auto" :model="userInfo" :rules="rules">
         <el-form-item label="用户名" prop="username">
           <el-input placeholder="请输入用户名" v-model.trim="userInfo.username"></el-input>
         </el-form-item>

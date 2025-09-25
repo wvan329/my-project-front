@@ -76,7 +76,7 @@
     </el-card>
     <!-- 抽屉1 -->
     <el-drawer class="dark:bg-black" v-model="drawer" direction="rtl" :title="drawerTitle" size="30%">
-      <el-form @submit.prevent ref="formRef" label-position="left" label-width="auto" :model="roleInfo" :rules="rules">
+      <el-form @submit.prevent ref="formRef" @keyup.enter="addOrUpdateRole" label-position="left" label-width="auto" :model="roleInfo" :rules="rules">
         <el-form-item label="角色名" prop="role">
           <el-input placeholder="请输入角色名" v-model.trim="roleInfo.role"></el-input>
         </el-form-item>
@@ -95,7 +95,16 @@
           <el-input v-model.trim="roleInfo.role" disabled></el-input>
         </el-form-item>
         <el-form-item label="权限列表">
-          <el-tree ref="treeRef" :props="defaultProps" default-expand-all empty-text="" style="max-width: 600px" :data="data" show-checkbox node-key="name" />
+          <el-tree
+            ref="treeRef"
+            :props="defaultProps"
+            default-expand-all
+            empty-text=""
+            style="max-width: 600px"
+            :data="data"
+            show-checkbox
+            node-key="name"
+          />
         </el-form-item>
       </el-form>
       <template #footer>
