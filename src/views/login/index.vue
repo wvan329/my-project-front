@@ -40,8 +40,7 @@ if (userStore.user) {
   // todo打开这行代码
   router.push("/")
 }
-const loginForm = reactive({ username: "wgk123", password: "123456", captchaId: "", captcha: "" })
-// const loginForm = reactive({ username: "", password: "", captchaId: "", captcha: "" })
+const loginForm = reactive({ username: "admin", password: "", captchaId: "", captcha: "" })
 let captcha = ref()
 const flushCaptcha = async () => {
   captcha.value = await getCaptcha()
